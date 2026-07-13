@@ -5,6 +5,7 @@ import FallingFlowers from "./FallingFlowers";
 import FloatingParticles from "./FloatingParticles";
 import InvitationText from "./invitationText";
 import InvitationCard from "./InvitationCard";
+import ScratchCard from "./ScratchCard";
 import Navigation from "./Navigation";
 import CountdownTimer from "./CountdownTimer";
 import StoryEnhanced from "./Story";
@@ -115,6 +116,7 @@ export default function LandingScreen({ names, date }: LandingScreenProps) {
           date={date}
           visible={phase === "opened" || phase === "opening"}
         />
+        <ScratchCard date="19th July" year="2026" />
         <CountdownTimer />
         <StoryEnhanced />
         <EventsEnhanced />
