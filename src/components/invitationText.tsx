@@ -13,12 +13,10 @@ export default function InvitationText({ visible }: InvitationTextProps) {
     >
       {/* "You're Invited" in cursive */}
       <p
+        className="font-cursive text-rose-deep animate-[tapPulse_2.8s_ease-in-out_infinite]"
         style={{
-          fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
           fontSize: "clamp(28px, 6vw, 44px)",
-          color: "#3d5a3a",
           textShadow: "0 1px 4px rgba(0,0,0,0.08)",
-          animation: "tapPulse 2.8s ease-in-out infinite",
           lineHeight: 1.2,
         }}
       >
@@ -27,13 +25,9 @@ export default function InvitationText({ visible }: InvitationTextProps) {
 
       {/* Sub-text */}
       <p
+        className="font-cinzel tracking-widest text-ink/80 uppercase animate-[tapPulse_2.8s_ease-in-out_0.3s_infinite]"
         style={{
-          fontFamily: "var(--font-poppins), Poppins, sans-serif",
           fontSize: "clamp(10px, 2.5vw, 13px)",
-          color: "#4a6648",
-          letterSpacing: "0.12em",
-          opacity: 0.8,
-          animation: "tapPulse 2.8s ease-in-out 0.3s infinite",
         }}
       >
         Tap the envelope to open your invitation

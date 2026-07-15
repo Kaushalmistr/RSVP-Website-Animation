@@ -78,7 +78,7 @@ export default function StoryEnhanced() {
         style={{ y: bgY }}
         className="absolute inset-0 pointer-events-none"
       >
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary-100 rounded-full blur-3xl opacity-20" />
+        <div className="absolute top-20 right-10 w-72 h-72 bg-rose-deep rounded-full blur-3xl opacity-10" />
       </motion.div>
 
       <div className="container-custom relative z-10">
@@ -97,7 +97,7 @@ export default function StoryEnhanced() {
             transition={{ duration: 5, repeat: Infinity }}
             className="inline-block"
           >
-            <h2 className="text-4xl md:text-5xl text-display font-bold text-accent-500 mb-3">
+            <h2 className="text-4xl md:text-5xl font-cursive text-rose-deep mb-3">
               Our Story
             </h2>
           </motion.div>
@@ -106,14 +106,14 @@ export default function StoryEnhanced() {
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="divider-accent mx-auto"
+            className="w-24 h-[1px] bg-gold-soft mx-auto my-6"
           />
 
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-accent-500/70 font-light mt-6 max-w-2xl mx-auto text-lg"
+            className="font-serif-display text-ink/70 mt-6 max-w-2xl mx-auto text-lg"
           >
             A journey of love, laughter, and a thousand moments that led us here
           </motion.p>
@@ -133,7 +133,7 @@ export default function StoryEnhanced() {
             whileInView={{ height: '100%', opacity: 1 }}
             transition={{ duration: 2 }}
             viewport={{ once: true }}
-            className="hidden md:block absolute left-1/2 -translate-x-1/2 w-1 bg-gradient-to-b from-primary-300 via-primary-500 to-transparent"
+            className="hidden md:block absolute left-1/2 -translate-x-1/2 w-[2px] bg-gradient-to-b from-gold-soft/80 via-gold-soft to-transparent"
           />
 
           <div className="space-y-16 md:space-y-24">
@@ -150,7 +150,7 @@ export default function StoryEnhanced() {
                   whileInView={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-white border-4 border-primary-500 rounded-full items-center justify-center shadow-lg z-10"
+                  className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 bg-white border-4 border-rose-deep rounded-full items-center justify-center shadow-lg z-10"
                 >
                   <motion.div
                     animate={{ scale: [1, 1.3, 1] }}
@@ -171,14 +171,14 @@ export default function StoryEnhanced() {
                 >
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className={`bg-gradient-to-br ${point.color} rounded-xl p-8 shadow-lg border border-white/50 backdrop-blur-sm`}
+                    className="bg-white rounded-2xl p-8 border border-gold-soft shadow-soft hover:shadow-elegant transition-all backdrop-blur-sm"
                   >
                     <motion.span
                       initial={{ opacity: 0, y: -10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                       viewport={{ once: true }}
-                      className="inline-block text-sm font-bold text-primary-600 uppercase tracking-widest mb-2"
+                      className="inline-block text-xs font-cinzel tracking-widest uppercase text-rose-deep font-semibold mb-2"
                     >
                       {point.year}
                     </motion.span>
@@ -188,7 +188,7 @@ export default function StoryEnhanced() {
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: 0.3 }}
                       viewport={{ once: true }}
-                      className="text-3xl text-display font-bold text-accent-500 mt-2 mb-3"
+                      className="text-3xl font-cursive text-rose-deep mt-2 mb-3"
                     >
                       {point.title}
                     </motion.h3>
@@ -198,7 +198,7 @@ export default function StoryEnhanced() {
                       whileInView={{ opacity: 1 }}
                       transition={{ delay: 0.4 }}
                       viewport={{ once: true }}
-                      className="text-accent-500/80 font-light leading-relaxed"
+                      className="font-serif-display text-ink/80 leading-relaxed"
                     >
                       {point.description}
                     </motion.p>
@@ -209,7 +209,7 @@ export default function StoryEnhanced() {
                       whileInView={{ scaleX: 1 }}
                       transition={{ delay: 0.5, duration: 0.6 }}
                       viewport={{ once: true }}
-                      className={`h-1 w-16 bg-gradient-to-r from-primary-500 to-transparent mt-4 ${index % 2 === 0 ? 'ml-auto' : 'ml-0'
+                      className={`h-1 w-16 bg-gradient-to-r from-rose-deep to-transparent mt-4 ${index % 2 === 0 ? 'ml-auto' : 'ml-0'
                         }`}
                     />
                   </motion.div>
@@ -238,7 +238,7 @@ export default function StoryEnhanced() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true, margin: '-50px' }}
-          className="mt-20 text-center py-12 border-y-2 border-primary-200 relative overflow-hidden"
+          className="mt-20 text-center py-12 border-y border-gold-soft bg-sage-soft/30 relative overflow-hidden"
         >
           {/* Animated background shimmer */}
           <motion.div
@@ -254,7 +254,7 @@ export default function StoryEnhanced() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-2xl md:text-3xl text-display font-light text-accent-500 italic relative z-10"
+            className="text-2xl md:text-3xl font-serif-display text-rose-deep italic relative z-10"
           >
             "In you, I found my home, my love, my forever"
           </motion.p>

@@ -82,7 +82,7 @@ export default function RSVP() {
   }
 
   return (
-    <section id="rsvp" className="section-spacing bg-gradient-to-b from-primary-50 to-white">
+    <section id="rsvp" className="section-spacing bg-cream">
       <div className="container-custom">
         {/* Section Header */}
         <motion.div
@@ -91,11 +91,11 @@ export default function RSVP() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl text-display font-bold text-accent-500 mb-3">
+          <h2 className="text-4xl md:text-5xl font-cursive text-rose-deep mb-3">
             RSVP
           </h2>
-          <div className="divider-accent mx-auto" />
-          <p className="text-accent-500/70 font-light mt-6 max-w-2xl mx-auto">
+          <div className="w-24 h-[1px] bg-gold-soft mx-auto my-6" />
+          <p className="font-serif-display text-ink/70 mt-6 max-w-2xl mx-auto">
             Please confirm your attendance by June 1st, 2026
           </p>
         </motion.div>
@@ -111,12 +111,12 @@ export default function RSVP() {
           {!submitted ? (
             <motion.form
               onSubmit={handleSubmit}
-              className="bg-white rounded-xl border border-primary-200 p-8 md:p-12 shadow-sm"
+              className="bg-white rounded-2xl border border-gold-soft p-8 md:p-12 shadow-soft hover:shadow-elegant transition-all"
             >
               <div className="space-y-6">
                 {/* Full Name */}
                 <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-accent-500 mb-2">
+                  <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                     Full Name *
                   </label>
                   <input
@@ -126,14 +126,14 @@ export default function RSVP() {
                     onChange={handleChange}
                     required
                     placeholder="Enter your full name"
-                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all font-serif-display text-ink bg-transparent"
                   />
                 </motion.div>
 
                 {/* Grid: Email and Phone */}
                 <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-accent-500 mb-2">
+                    <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                       Email *
                     </label>
                     <input
@@ -143,11 +143,11 @@ export default function RSVP() {
                       onChange={handleChange}
                       required
                       placeholder="your@email.com"
-                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all font-serif-display text-ink bg-transparent"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-accent-500 mb-2">
+                    <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                       Phone
                     </label>
                     <input
@@ -156,14 +156,14 @@ export default function RSVP() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+91 XXXXXXXXXX"
-                      className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all font-serif-display text-ink bg-transparent"
                     />
                   </div>
                 </motion.div>
 
                 {/* Attendance */}
                 <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-accent-500 mb-2">
+                  <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                     Will you be attending? *
                   </label>
                   <div className="flex gap-4">
@@ -176,9 +176,9 @@ export default function RSVP() {
                           checked={formData.attendance === option}
                           onChange={handleChange}
                           required
-                          className="w-4 h-4 accent-primary-500"
+                          className="w-4 h-4 accent-rose-deep"
                         />
-                        <span className="text-accent-500 font-medium capitalize">{option}</span>
+                        <span className="font-serif-display text-ink font-medium capitalize">{option}</span>
                       </label>
                     ))}
                   </div>
@@ -186,14 +186,14 @@ export default function RSVP() {
 
                 {/* Number of Guests */}
                 <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-accent-500 mb-2">
+                  <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                     Number of Guests
                   </label>
                   <select
                     name="guests"
                     value={formData.guests}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all bg-white"
+                    className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all bg-white font-serif-display text-ink"
                   >
                     {[1, 2, 3, 4, 5].map((num) => (
                       <option key={num} value={num}>
@@ -205,7 +205,7 @@ export default function RSVP() {
 
                 {/* Dietary Restrictions */}
                 <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-accent-500 mb-2">
+                  <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                     Dietary Restrictions
                   </label>
                   <input
@@ -214,13 +214,13 @@ export default function RSVP() {
                     value={formData.dietaryRestrictions}
                     onChange={handleChange}
                     placeholder="e.g., Vegetarian, Vegan, Gluten-free"
-                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all font-serif-display text-ink bg-transparent"
                   />
                 </motion.div>
 
                 {/* Message */}
                 <motion.div variants={itemVariants}>
-                  <label className="block text-sm font-semibold text-accent-500 mb-2">
+                  <label className="block text-xs font-cinzel tracking-widest uppercase text-sage-deep mb-2 font-semibold">
                     Special Message
                   </label>
                   <textarea
@@ -229,7 +229,7 @@ export default function RSVP() {
                     onChange={handleChange}
                     placeholder="Share a message, blessing, or well-wishes..."
                     rows={4}
-                    className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 border border-gold-soft rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-deep focus:border-transparent transition-all resize-none font-serif-display text-ink bg-transparent"
                   />
                 </motion.div>
 
@@ -238,7 +238,7 @@ export default function RSVP() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full btn-primary disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full bg-rose-deep text-cream hover:bg-rose px-6 py-3 rounded-full font-cinzel tracking-widest text-sm font-semibold shadow-soft hover:shadow-elegant transition-all text-center disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Submitting...' : 'Submit RSVP'}
                   </button>
@@ -249,19 +249,19 @@ export default function RSVP() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-white rounded-xl border-2 border-primary-500 p-8 md:p-12 text-center"
+              className="bg-white rounded-2xl border border-gold-soft p-8 md:p-12 text-center shadow-soft"
             >
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.6, repeat: 3 }}
-                className="text-6xl mb-4"
+                className="text-6xl mb-4 text-rose-deep"
               >
                 ✓
               </motion.div>
-              <h3 className="text-3xl text-display font-bold text-primary-500 mb-3">
+              <h3 className="text-2xl font-cinzel tracking-wider font-semibold text-rose-deep mb-3">
                 Thank You!
               </h3>
-              <p className="text-accent-500/70 font-light">
+              <p className="font-serif-display text-ink/70">
                 We've received your RSVP. We can't wait to celebrate with you!
               </p>
             </motion.div>
@@ -287,12 +287,12 @@ export default function RSVP() {
           ].map((item, index) => (
             <div
               key={item.title}
-              className="bg-primary-50 rounded-lg p-6 text-center border border-primary-100"
+              className="bg-sage-soft rounded-2xl p-6 text-center border border-gold-soft shadow-soft"
             >
-              <p className="text-sm font-semibold text-primary-500 uppercase tracking-widest mb-2">
+              <p className="text-xs font-cinzel tracking-widest text-rose-deep uppercase font-semibold mb-2">
                 {item.title}
               </p>
-              <p className="text-accent-500 font-medium">{item.content}</p>
+              <p className="font-serif-display text-ink font-medium">{item.content}</p>
             </div>
           ))}
         </motion.div>
