@@ -21,8 +21,7 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [stage, setStage] = useState<'scratch' | 'revealing' | 'revealed'>('scratch')
   // percent of area that must be scratched to trigger reveal
-  const REVEAL_THRESHOLD = 60
-  const [scratchProgress, setScratchProgress] = useState(0)
+  const REVEAL_THRESHOLD = 50
   const [hasConfettiFired, setHasConfettiFired] = useState(false)
   const [showCountdown, setShowCountdown] = useState(false)
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
@@ -33,15 +32,8 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
   })
   const isDrawing = useRef(false)
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
-
-  // Load reveal state from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem('scratchCardRevealed')
-    if (stored === 'true') {
-      setStage('revealed')
-      setShowCountdown(true)
-    }
-  }, [])
+  const scratchTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const hasStartedScratchingRef = useRef(false)
 
   // Countdown timer effect
   useEffect(() => {
@@ -82,10 +74,10 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
 
     const dpr = window.devicePixelRatio || 1
     const rect = canvas.getBoundingClientRect()
-    
+
     canvas.width = rect.width * dpr
     canvas.height = rect.height * dpr
-    
+
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
@@ -97,7 +89,7 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
     gradient.addColorStop(0, '#D4AF37')
     gradient.addColorStop(0.5, '#F4E4A6')
     gradient.addColorStop(1, '#D4AF37')
-    
+
     ctx.fillStyle = gradient
     ctx.fillRect(0, 0, rect.width, rect.height)
 
@@ -131,7 +123,6 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
     }
 
     const progress = (transparentPixels / (data.length / 4)) * 100
-    setScratchProgress(progress)
 
     return progress
   }, [])
@@ -160,12 +151,13 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
 
       ctx.globalCompositeOperation = 'destination-out'
       ctx.beginPath()
-      ctx.arc(x, y, 40, 0, Math.PI * 2)
+      ctx.arc(x, y, 25, 0, Math.PI * 2)
       ctx.fill()
 
       const progress = calculateScratchProgress()
       if (progress && progress >= REVEAL_THRESHOLD && !hasConfettiFired) {
         setHasConfettiFired(true)
+        if (scratchTimerRef.current) clearTimeout(scratchTimerRef.current)
         triggerReveal()
       }
     },
@@ -197,17 +189,31 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
 
     setTimeout(() => {
       setStage('revealed')
-      // persist final revealed state only after reveal completes
-      try {
-        localStorage.setItem('scratchCardRevealed', 'true')
-      } catch (e) {
-        // ignore storage errors
-      }
     }, 600)
+  }, [])
+
+  // Start a 4-second auto-reveal timer on first scratch interaction
+  const startScratchTimer = useCallback(() => {
+    if (hasStartedScratchingRef.current || stage !== 'scratch') return
+    hasStartedScratchingRef.current = true
+    scratchTimerRef.current = setTimeout(() => {
+      if (!hasConfettiFired) {
+        setHasConfettiFired(true)
+        triggerReveal()
+      }
+    }, 4000)
+  }, [stage, hasConfettiFired, triggerReveal])
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (scratchTimerRef.current) clearTimeout(scratchTimerRef.current)
+    }
   }, [])
 
   const handleMouseDown = () => {
     isDrawing.current = true
+    startScratchTimer()
   }
 
   const handleMouseUp = () => {
@@ -216,12 +222,14 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
     const progress = calculateScratchProgress()
     if (progress && progress >= REVEAL_THRESHOLD && !hasConfettiFired && stage === 'scratch') {
       setHasConfettiFired(true)
+      if (scratchTimerRef.current) clearTimeout(scratchTimerRef.current)
       triggerReveal()
     }
   }
 
   const handleTouchStart = () => {
     isDrawing.current = true
+    startScratchTimer()
   }
 
   const handleTouchEnd = () => {
@@ -230,6 +238,7 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
     const progress = calculateScratchProgress()
     if (progress && progress >= REVEAL_THRESHOLD && !hasConfettiFired && stage === 'scratch') {
       setHasConfettiFired(true)
+      if (scratchTimerRef.current) clearTimeout(scratchTimerRef.current)
       triggerReveal()
     }
   }
@@ -237,175 +246,129 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
   return (
     <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FAF6EE] via-[#FFFCF7] to-[#FAF6EE] py-20 px-4">
       <motion.div
-        className="relative w-full max-w-3xl"
+        className="relative w-full max-w-xl"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        {/* Scratch Card Container - RECTANGULAR */}
-        <div className="relative w-full rounded-[40px] overflow-hidden shadow-[0_40px_120px_rgba(212,175,55,0.12)]" style={{ aspectRatio: '16 / 9', minHeight: '420px' }}>
-          {/* Glow effect background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/20 via-transparent to-[#D4AF37]/20 rounded-[40px]" />
-          
-          {/* Canvas - Scratch layer */}
-          {stage === 'scratch' && (
-            <motion.canvas
-              ref={canvasRef}
-              className="absolute inset-0 w-full h-full cursor-pointer z-10 rounded-3xl"
-              onMouseDown={handleMouseDown}
-              onMouseUp={handleMouseUp}
-              onMouseMove={scratch}
-              onMouseLeave={handleMouseUp}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-              onTouchMove={scratch}
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-            />
-          )}
+        {/* Single fixed container — same size in both states */}
+        <div className="relative mx-auto w-full rounded-[32px] bg-white/95 border border-[#D4AF37]/20 shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-6 md:p-8 backdrop-blur-sm overflow-hidden">
 
-          {/* Initial Scratch Text */}
-          {stage === 'scratch' && (
-            <motion.div
-              className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none"
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+          {/* Revealed content — always rendered to define container size */}
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={stage === 'revealed' ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            transition={{ delay: stage === 'revealed' ? 0.2 : 0, duration: 0.6 }}
+          >
+            <div className="text-xs md:text-sm tracking-[0.3em] text-rose-600 font-light uppercase mb-4">
+              Save the Date
+            </div>
+            <div className="border border-[#D4AF37]/30 rounded-[27px] py-4 md:py-5 px-4 md:px-6 mb-6 bg-[#FEF8F0] shadow-inner shadow-[#D4AF37]/10">
               <motion.div
-                className="w-full max-w-2xl rounded-[34px] bg-gradient-to-r from-[#D4AF37] via-[#F0D277] to-[#C59F3F] border border-white/20 shadow-[0_30px_80px_rgba(212,175,55,0.2)] px-8 py-8 md:px-10 md:py-10"
-                initial={{ opacity: 0.95, scale: 0.96 }}
-                animate={{ opacity: 1, scale: [0.98, 1, 0.98] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-4xl md:text-5xl font-serif text-rose-700"
+                initial={{ opacity: 0, scale: 0.88 }}
+                animate={stage === 'revealed' ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.88 }}
+                transition={{ delay: stage === 'revealed' ? 0.4 : 0, duration: 0.6 }}
               >
-                <div className="text-center">
-                  <motion.div
-                    className="text-sm md:text-base tracking-[0.35em] font-semibold uppercase text-white/90 mb-3"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.8 }}
-                  >
-                    Scratch to Reveal
-                  </motion.div>
-                  <motion.div
-                    className="text-lg md:text-xl text-white/85 font-light"
-                    animate={{ opacity: [0.95, 1, 0.95] }}
-                    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                  >
-                    Discover your special date
-                  </motion.div>
-                </div>
+                {date}
               </motion.div>
-            </motion.div>
-          )}
-
-          {/* Revealed Content - All in One Card */}
-          {stage === 'revealed' && (
+            </div>
             <motion.div
-              className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#FAF6EE] via-[#FFFCF7] to-[#FAF6EE] flex flex-col items-center justify-between z-20 rounded-[40px] p-6 md:p-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
+              className="text-sm md:text-base tracking-widest text-gray-600 font-light"
+              initial={{ opacity: 0 }}
+              animate={stage === 'revealed' ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: stage === 'revealed' ? 0.6 : 0, duration: 0.6 }}
             >
-              <div className="mx-auto w-full max-w-xl rounded-[32px] bg-white/95 border border-[#D4AF37]/20 shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-6 md:p-8 backdrop-blur-sm">
-                <motion.div
-                  className="text-center"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                  <div className="text-xs md:text-sm tracking-[0.3em] text-rose-600 font-light uppercase mb-4">
-                    Save the Date
-                  </div>
-                  <div className="border border-[#D4AF37]/30 rounded-[27px] py-4 md:py-5 px-4 md:px-6 mb-6 bg-[#FEF8F0] shadow-inner shadow-[#D4AF37]/10">
-                    <motion.div
-                      className="text-4xl md:text-5xl font-serif text-rose-700"
-                      initial={{ opacity: 0, scale: 0.88 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.4, duration: 0.6 }}
-                    >
-                      {date}
-                    </motion.div>
-                  </div>
-                  <motion.div
-                    className="text-sm md:text-base tracking-widest text-gray-600 font-light"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                  >
-                    {year}
-                  </motion.div>
-                </motion.div>
+              {year}
+            </motion.div>
+          </motion.div>
 
-                {showCountdown && (
+          {showCountdown && (
+            <motion.div
+              className="mt-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <div className="grid grid-cols-4 gap-3 md:gap-4">
+                {[
+                  { label: 'Days', value: String(timeLeft.days).padStart(2, '0') },
+                  { label: 'Hours', value: String(timeLeft.hours).padStart(2, '0') },
+                  { label: 'Minutes', value: String(timeLeft.minutes).padStart(2, '0') },
+                  { label: 'Seconds', value: String(timeLeft.seconds).padStart(2, '0') },
+                ].map((unit, index) => (
                   <motion.div
-                    className="mt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8, duration: 0.6 }}
+                    key={unit.label}
+                    className="text-center"
+                    initial={{ opacity: 0, scale: 0.88 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9 + index * 0.06, duration: 0.5 }}
                   >
-                    <div className="grid grid-cols-4 gap-3 md:gap-4">
-                      {[
-                        { label: 'Days', value: String(timeLeft.days).padStart(2, '0') },
-                        { label: 'Hours', value: String(timeLeft.hours).padStart(2, '0') },
-                        { label: 'Minutes', value: String(timeLeft.minutes).padStart(2, '0') },
-                        { label: 'Seconds', value: String(timeLeft.seconds).padStart(2, '0') },
-                      ].map((unit, index) => (
-                        <motion.div
-                          key={unit.label}
-                          className="text-center"
-                          initial={{ opacity: 0, scale: 0.88 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.9 + index * 0.06, duration: 0.5 }}
-                        >
-                          <div className="bg-[#FEF8F0] border border-[#D4AF37]/30 rounded-3xl p-3 md:p-4 shadow-sm">
-                            <motion.div
-                              className="text-2xl md:text-3xl font-bold text-rose-700 font-serif"
-                              key={`${unit.label}-${unit.value}`}
-                              initial={{ scale: 0.9, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              {unit.value}
-                            </motion.div>
-                            <div className="text-[10px] md:text-xs text-gray-600 font-light tracking-[0.22em] uppercase mt-2">
-                              {unit.label}
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
+                    <div className="bg-[#FEF8F0] border border-[#D4AF37]/30 rounded-3xl p-3 md:p-4 shadow-sm">
+                      <motion.div
+                        className="text-2xl md:text-3xl font-bold text-rose-700 font-serif"
+                        key={`${unit.label}-${unit.value}`}
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {unit.value}
+                      </motion.div>
+                      <div className="text-[10px] md:text-xs text-gray-600 font-light tracking-[0.22em] uppercase mt-2">
+                        {unit.label}
+                      </div>
                     </div>
                   </motion.div>
-                )}
+                ))}
               </div>
             </motion.div>
           )}
 
-          {/* Decorative border glow */}
-          <div className="absolute inset-0 rounded-3xl border-2 border-[#D4AF37]/30 pointer-events-none shadow-lg shadow-[#D4AF37]/20" />
-        </div>
+          {/* Scratch overlay — sits on top of revealed content, same container */}
+          {stage === 'scratch' && (
+            <>
+              {/* Gold gradient background behind canvas */}
+              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-[#D4AF37] via-[#F0D277] to-[#C59F3F] z-10" />
 
-        {/* Progress indicator (subtle) */}
-        {stage === 'scratch' && scratchProgress > 0 && (
-          <motion.div
-            className="mt-6 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <div className="text-xs text-gray-500 mb-2">
-              {Math.round(scratchProgress)}% Revealed
-            </div>
-            <div className="h-1 bg-gray-200 rounded-full overflow-hidden max-w-xs mx-auto">
+              {/* Scratch text label */}
               <motion.div
-                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F4E4A6]"
-                initial={{ width: 0 }}
-                animate={{ width: `${scratchProgress}%` }}
-                transition={{ duration: 0.3 }}
+                className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+              >
+                <motion.div
+                  className="text-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                >
+                  <div className="text-sm md:text-base tracking-[0.35em] font-semibold uppercase text-white/90">
+                    ✦ Scratch to Reveal ✦
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Canvas scratch layer */}
+              <motion.canvas
+                ref={canvasRef}
+                className="absolute inset-0 w-full h-full cursor-pointer z-30 rounded-[32px]"
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseMove={scratch}
+                onMouseLeave={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onTouchMove={scratch}
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6 }}
               />
-            </div>
-          </motion.div>
-        )}
+
+              {/* Decorative border glow */}
+              <div className="absolute inset-0 rounded-[32px] border-2 border-[#D4AF37]/30 pointer-events-none shadow-lg shadow-[#D4AF37]/20 z-20" />
+            </>
+          )}
+        </div>
       </motion.div>
     </section>
   )

@@ -73,7 +73,7 @@ export default function CountdownTimer() {
   }
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-white via-primary-50/30 to-white border-y border-primary-100">
+    <section className="py-16 md:py-20 bg-sage-soft border-y border-gold-soft">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0 }}
@@ -81,10 +81,10 @@ export default function CountdownTimer() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl text-display font-bold text-accent-500 mb-3">
+          <h2 className="text-4xl md:text-5xl font-cursive text-rose-deep mb-3">
             Time Until Our Big Day
           </h2>
-          <div className="divider-accent mx-auto" />
+          <div className="w-24 h-[1px] bg-gold-soft mx-auto my-6" />
         </motion.div>
 
         <motion.div
@@ -98,7 +98,7 @@ export default function CountdownTimer() {
             <motion.div
               key={unit.label}
               variants={itemVariants}
-              className="bg-white rounded-lg border border-primary-200 p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl border border-gold-soft p-6 md:p-8 text-center shadow-soft hover:shadow-elegant transition-all"
             >
               <div className="mb-3">
                 <motion.div
@@ -106,12 +106,12 @@ export default function CountdownTimer() {
                   initial={{ scale: 1.1, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="text-4xl md:text-5xl font-bold text-primary-500"
+                  className="text-4xl md:text-5xl font-cinzel tracking-widest text-rose-deep"
                 >
                   {String(unit.value).padStart(2, '0')}
                 </motion.div>
               </div>
-              <p className="text-sm md:text-base font-light text-accent-500">
+              <p className="text-xs md:text-sm font-cinzel tracking-widest uppercase text-sage-deep font-medium">
                 {unit.label}
               </p>
             </motion.div>
@@ -122,7 +122,7 @@ export default function CountdownTimer() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-center mt-10 text-accent-500/70 font-light"
+          className="text-center mt-10 font-serif-display text-ink/70"
         >
           We can't wait to celebrate with you!
         </motion.p>
