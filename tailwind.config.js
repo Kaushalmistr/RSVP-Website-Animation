@@ -8,41 +8,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#FDF8F8',
-          100: '#FBEBEB',
-          200: '#F7D6D6',
-          300: '#F0B7B7',
-          400: '#E68F8F',
-          500: '#D4A5A5', // Blush Rose Gold
-          600: '#C28585',
-          700: '#A86060',
-          800: '#8E4343',
-          900: '#752F2F',
+        cream: 'hsl(38 50% 95%)',
+        ink: 'hsl(25 30% 18%)',
+        rose: {
+          DEFAULT: 'hsl(348 60% 50%)',
+          deep: 'hsl(348 65% 35%)',
         },
-        accent: {
-          50: '#F4F7F9',
-          100: '#E4ECF2',
-          200: '#C4D5E3',
-          300: '#94B4CD',
-          400: '#5F8CB2',
-          500: '#1B3A5C', // Navy Blue
-          600: '#152F4B',
-          700: '#10243B',
-          800: '#0C1A2B',
-          900: '#07101B',
+        'gold-soft': 'hsl(36 60% 75%)',
+        sage: {
+          deep: 'hsl(95 25% 45%)',
+          soft: 'hsl(95 30% 88%)',
         },
-        gold: {
-          100: '#FAF1DE',
-          500: '#C9A961', // Gold Accent
-          700: '#9B7F43',
-        }
       },
       fontFamily: {
-        display: ['var(--font-playfair)', 'serif'],
-        sans: ['var(--font-poppins)', 'sans-serif'],
-        serif: ['Georgia', 'serif'],
-        cursive: ['var(--font-great-vibes)', 'cursive'],
+        cinzel: ['var(--font-cinzel)', 'Cinzel', 'serif'],
+        'serif-display': ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        cursive: ['var(--font-great-vibes)', 'Great Vibes', 'cursive'],
+      },
+      boxShadow: {
+        soft: '0 8px 30px -10px hsl(25 30% 18% / 0.15)',
+        elegant: '0 20px 60px -20px hsl(95 25% 25% / 0.25)',
+      },
+      backgroundImage: {
+        'envelope-scene': 'linear-gradient(135deg, hsl(95 30% 80%) 0%, hsl(95 22% 68%) 100%)',
       },
     },
   },
