@@ -86,12 +86,10 @@ const CornerBotanical = ({ className, style }: { className?: string; style?: Rea
 /* ─── Premium Gold Outline Ganesha SVG ─── */
 const GaneshGoldIcon = () => (
   <svg
-    width="64"
-    height="72"
     viewBox="0 0 100 110"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="mx-auto"
+    className="mx-auto h-24 w-24 object-contain drop-shadow-md"
   >
     {/* Crown (Mukut) */}
     <path d="M42,15 L50,5 L58,15 L55,25 L45,25 Z" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -310,14 +308,14 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
       </div>
 
       {/* ─── MAIN WEDDING CARD HERO CONTENT ─── */}
-      <div className="relative z-[4] w-full max-w-[620px] mx-auto flex flex-col items-center text-center">
+      <div className="relative z-[4] w-full flex flex-col items-center text-center">
         {/* 1. Ganesha Gold Icon (Reveals first) */}
         <motion.div
           variants={fadeUpVariants}
           custom={0.3}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mb-3"
+          className="text-rose-deep"
         >
           <GaneshGoldIcon />
         </motion.div>
@@ -328,13 +326,7 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={0.8}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-2 tracking-[0.1em]"
-          style={{
-            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
-            fontSize: "clamp(16px, 3.5vw, 22px)",
-            color: "#c4873a",
-            textShadow: "0 1px 2px rgba(255,255,255,0.4)"
-          }}
+          className="font-serif-display italic text-lg sm:text-xl mt-2 text-rose-deep"
         >
           ॥ Shree Ganeshaya Namah ॥
         </motion.p>
@@ -345,12 +337,7 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={1.4}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-6 mb-8 leading-relaxed max-w-[440px] px-4 font-light text-accent-500"
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(15px, 3.5vw, 19px)",
-            letterSpacing: "0.02em"
-          }}
+          className="mt-8 max-w-md font-serif-display text-base sm:text-lg text-rose-deep"
         >
           We cordially invite you to witness the beginning of our forever and celebrate the wedding ceremony of
         </motion.p>
@@ -361,39 +348,23 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={2.1}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="text-primary-700 tracking-normal select-none"
-          style={{
-            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
-            fontSize: "clamp(46px, 11vw, 76px)",
-            lineHeight: 1.05,
-            textShadow: "0 1px 2px rgba(212,165,165,0.15)"
-          }}
+          className="mt-6"
         >
-          {names[0]}
+          <span className="block font-cursive text-7xl sm:text-8xl md:text-9xl text-rose leading-none select-none">
+            {names[0]}
+          </span>
         </motion.h1>
 
         {/* 5. Groom Parent Names */}
-        <motion.div
+        <motion.p
           variants={fadeUpVariants}
           custom={2.9}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-2 mb-5"
+          className="mt-3 font-serif-display text-base sm:text-lg text-ink/80 whitespace-pre-line"
         >
-          <p
-            className="whitespace-pre-line"
-            style={{
-              fontFamily: "var(--font-poppins), Poppins, sans-serif",
-              fontSize: "clamp(11px, 2.6vw, 13px)",
-              color: "#7a8a6c",
-              letterSpacing: "0.08em",
-              fontWeight: 400,
-              lineHeight: 1.6
-            }}
-          >
-            {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
-          </p>
-        </motion.div>
+          {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
+        </motion.p>
 
         {/* 6. "with" Connector Text */}
         <motion.p
@@ -401,11 +372,7 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={3.5}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="my-3 font-light text-gold-700 italic"
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(22px, 5vw, 32px)",
-          }}
+          className="mt-5 font-cursive text-3xl sm:text-4xl text-rose-deep italic"
         >
           with
         </motion.p>
@@ -416,39 +383,23 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={4.1}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="text-primary-700 tracking-normal select-none"
-          style={{
-            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
-            fontSize: "clamp(46px, 11vw, 76px)",
-            lineHeight: 1.05,
-            textShadow: "0 1px 2px rgba(212,165,165,0.15)"
-          }}
+          className="mt-2"
         >
-          {names[1]}
+          <span className="block font-cursive text-7xl sm:text-8xl md:text-9xl text-rose leading-none select-none">
+            {names[1]}
+          </span>
         </motion.h1>
 
         {/* 8. Bride Parent Names */}
-        <motion.div
+        <motion.p
           variants={fadeUpVariants}
           custom={4.9}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-2 mb-8"
+          className="mt-3 font-serif-display text-base sm:text-lg text-ink/80 pb-12 whitespace-pre-line"
         >
-          <p
-            className="whitespace-pre-line"
-            style={{
-              fontFamily: "var(--font-poppins), Poppins, sans-serif",
-              fontSize: "clamp(11px, 2.6vw, 13px)",
-              color: "#7a8a6c",
-              letterSpacing: "0.08em",
-              fontWeight: 400,
-              lineHeight: 1.6
-            }}
-          >
-            {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
-          </p>
-        </motion.div>
+          {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
+        </motion.p>
       </div>
     </section>
   );
