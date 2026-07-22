@@ -244,9 +244,9 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
   }
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FAF6EE] via-[#FFFCF7] to-[#FAF6EE] py-20 px-4">
+    <section className="relative py-20 px-6 bg-cream">
       <motion.div
-        className="relative w-full max-w-xl"
+        className="relative w-full max-w-xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
