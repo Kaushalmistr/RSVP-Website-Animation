@@ -261,7 +261,7 @@ const Envelope = forwardRef<HTMLButtonElement, EnvelopeProps>(function Envelope(
 ) {
   return (
     <div
-      className="fixed inset-0 z-[5] flex items-center justify-center"
+      className="relative flex items-center justify-center"
       style={{ perspective: 1400 }}
     >
       <button

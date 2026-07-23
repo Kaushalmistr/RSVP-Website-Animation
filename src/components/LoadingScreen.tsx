@@ -7,7 +7,6 @@ import InvitationText from "./invitationText";
 import InvitationCard from "./InvitationCard";
 import ScratchCard from "./ScratchCard";
 import Navigation from "./Navigation";
-import CountdownTimer from "./CountdownTimer";
 import StoryEnhanced from "./Story";
 import EventsEnhanced from "./Events";
 import GalleryEnhanced from "./Gallery";
@@ -127,33 +126,44 @@ export default function LandingScreen({ names, date }: LandingScreenProps) {
       {phase !== "opened" && (
         <div
           ref={envelopeScene}
-          className="fixed inset-0 overflow-hidden z-[50] w-full h-full"
-          style={{
-            background:
-              "radial-gradient(ellipse 130% 100% at 50% 0%, #b0bfa0 0%, #96a886 35%, #8a9c78 65%, #7d9070 100%)",
-          }}
+          className="fixed inset-0 z-[50] min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 bg-envelope-scene"
         >
-          {/* Subtle vignette overlay */}
-          <div
-            className="fixed inset-0 pointer-events-none z-[0]"
-            style={{
-              background:
-                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.12) 100%)",
-            }}
-          />
+          <span className="pointer-events-none absolute top-6 left-6 text-3xl opacity-70 animate-drift select-none">
+            🌸
+          </span>
+          <span
+            className="pointer-events-none absolute top-8 right-10 text-2xl opacity-60 animate-drift select-none"
+            style={{ animationDelay: "1s" }}
+          >
+            🌼
+          </span>
+          <span
+            className="pointer-events-none absolute bottom-8 left-10 text-3xl opacity-70 animate-drift select-none"
+            style={{ animationDelay: "2s" }}
+          >
+            🌿
+          </span>
+          <span
+            className="pointer-events-none absolute bottom-6 right-6 text-3xl opacity-70 animate-drift select-none"
+            style={{ animationDelay: "0.5s" }}
+          >
+            🌿
+          </span>
 
           <FallingFlowers count={20} layer="back" />
           <FloatingParticles count={12} />
 
-          <Envelope
-            names={names}
-            date={date}
-            onOpen={open}
-            refs={{ flap, seal, letter }}
-          />
+          <div className="relative z-[5] flex flex-col items-center">
+            <Envelope
+              names={names}
+              date={date}
+              onOpen={open}
+              refs={{ flap, seal, letter }}
+            />
+            <InvitationText names={names} date={date} visible={phase === "idle"} />
+          </div>
 
           <FallingFlowers count={8} layer="front" />
-          <InvitationText names={names} date={date} visible={phase === "idle"} />
         </div>
       )}
     </div>
