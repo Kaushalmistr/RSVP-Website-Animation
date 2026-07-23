@@ -225,35 +225,35 @@ export default function ScratchCard({
 
   return (
     <section className="relative py-20 px-6 bg-cream">
-      <span className="pointer-events-none absolute top-6 left-4 text-4xl opacity-20 select-none">
-        🌿
-      </span>
-      <span className="pointer-events-none absolute top-12 right-6 text-3xl opacity-20 select-none">
-        🌸
-      </span>
-      <span className="pointer-events-none absolute bottom-10 left-10 text-3xl opacity-20 select-none">
-        🌼
-      </span>
-      <span className="pointer-events-none absolute bottom-6 right-4 text-4xl opacity-20 select-none">
-        🌿
-      </span>
+      <motion.div
+        className="relative w-full max-w-xl mx-auto"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        {/* Single fixed container — same size in both states */}
+        <div className="relative mx-auto w-full rounded-[32px] bg-white/95 border border-[#D4AF37]/20 shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-6 md:p-8 backdrop-blur-sm overflow-hidden">
 
-      <div className="relative max-w-3xl mx-auto text-center">
-        <div className="my-6 flex items-center justify-center gap-3">
-          <span className="h-px w-16 bg-gold-soft" />
-          <span className="text-gold-soft text-lg">❀</span>
-          <span className="h-px w-16 bg-gold-soft" />
-        </div>
-
-        <div className="mb-10">
-          <div className="relative mx-auto w-full max-w-md h-32 rounded-2xl overflow-hidden border-2 border-gold-soft shadow-elegant select-none">
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-cream">
-              <p className="font-cinzel tracking-[0.35em] text-sage-deep text-base">
-                SAVE THE DATE
-              </p>
-              <p className="font-cursive text-4xl text-rose-deep mt-1 leading-none">
-                {date} {year}
-              </p>
+          {/* Revealed content — always rendered to define container size */}
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={stage === 'revealed' ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+            transition={{ delay: stage === 'revealed' ? 0.2 : 0, duration: 0.6 }}
+          >
+            <div className="text-xs md:text-sm tracking-[0.3em] text-rose-600 font-light uppercase mb-4">
+              Save the Date
+            </div>
+            <div className="border border-[#D4AF37]/30 rounded-[27px] py-4 md:py-5 px-4 md:px-6 mb-6 bg-[#FEF8F0] shadow-inner shadow-[#D4AF37]/10">
+              <motion.div
+                className="text-4xl md:text-5xl font-serif text-rose-700"
+                initial={{ opacity: 0, scale: 0.88 }}
+                animate={stage === 'revealed' ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.88 }}
+                transition={{ delay: stage === 'revealed' ? 0.4 : 0, duration: 0.6 }}
+              >
+                {date}
+              </motion.div>
             </div>
 
             {stage === 'scratch' && (
