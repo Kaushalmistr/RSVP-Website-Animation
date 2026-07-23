@@ -117,8 +117,6 @@ export default function LandingScreen({ names, date }: LandingScreenProps) {
           visible={phase === "opened" || phase === "opening"}
         />
         <ScratchCard date="31st Dec" year="2026" targetDate="2026-12-31" />
-        <CountdownTimer targetDate="2026-12-31" />
-        <StoryEnhanced />
         <EventsEnhanced />
         <GalleryEnhanced />
         <RSVP />
