@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
-import { Cinzel, Cormorant_Garamond, Great_Vibes } from 'next/font/google'
+import { Playfair_Display, Poppins, Great_Vibes } from 'next/font/google'
 import './globals.css'
 
-const cinzel = Cinzel({
+const playfair = Playfair_Display({ 
   subsets: ['latin'],
-  variable: '--font-cinzel',
+  variable: '--font-playfair',
   display: 'swap',
 })
 
-const cormorant = Cormorant_Garamond({
+const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-poppins',
   display: 'swap',
 })
 
@@ -39,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${cinzel.variable} ${cormorant.variable} ${greatVibes.variable} font-serif-display antialiased`}>
+      <body className={`${playfair.variable} ${poppins.variable} ${greatVibes.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

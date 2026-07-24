@@ -81,20 +81,41 @@ export default function EventsEnhanced() {
   }
 
   return (
-    <section className="py-20 px-4 md:px-6 bg-sage-soft relative overflow-hidden">
+    <section className="py-20 px-4 md:px-6 relative overflow-hidden" style={{ backgroundColor: "hsl(95deg 12.71% 73.84%)" }}>
+      {/* ─── PROCEDURAL WATERCOLOR BACKGROUND ─── */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-[0]">
+        {/* Soft blush watercolor stain top-left */}
+        <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-[#FCEBEB] blur-[90px] opacity-60" />
+        
+        {/* Soft sage watercolor stain right-center */}
+        <div className="absolute top-[25%] -right-[15%] w-[65vw] h-[65vw] rounded-full bg-[#EBF0E6] blur-[100px] opacity-55" />
+        
+        {/* Creamy gold watercolor stain bottom-left */}
+        <div className="absolute -bottom-[10%] -left-[5%] w-[55vw] h-[55vw] rounded-full bg-[#F7EAD0] blur-[80px] opacity-45" />
+
+        {/* Paper texture grain overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: "radial-gradient(#4a3f2f 1px, transparent 1px)",
+            backgroundSize: "20px 20px"
+          }}
+        />
+      </div>
+
       {/* Decorative floating elements */}
       <motion.div
-        className="absolute -top-20 -right-20 w-40 h-40 bg-gold-soft/20 rounded-full blur-3xl"
+        className="absolute -top-20 -right-20 w-40 h-40 bg-gold-soft/20 rounded-full blur-3xl z-10"
         animate={{ y: [0, 40, 0] }}
         transition={{ duration: 8, repeat: Infinity }}
       />
       <motion.div
-        className="absolute -bottom-20 -left-20 w-40 h-40 bg-rose-deep/10 rounded-full blur-3xl"
+        className="absolute -bottom-20 -left-20 w-40 h-40 bg-rose-deep/10 rounded-full blur-3xl z-10"
         animate={{ y: [40, 0, 40] }}
         transition={{ duration: 10, repeat: Infinity }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-20">
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -160,12 +181,12 @@ export default function EventsEnhanced() {
                 {/* Right Column - Event Details */}
                 <div className="w-full sm:w-1/2 flex flex-col justify-center items-center sm:items-start text-center sm:text-left gap-3 sm:gap-4">
                   {/* Event Title */}
-                  <h3 className="font-cursive text-4xl sm:text-5xl text-cream drop-shadow-lg leading-tight">
+                  <h3 className="font-cursive text-4xl sm:text-5xl text-white drop-shadow-lg leading-tight">
                     {event.name}
                   </h3>
 
                   {/* Event Subtitle */}
-                  <p className="text-sm sm:text-base italic text-cream/90 drop-shadow-md leading-relaxed">
+                  <p className="text-sm sm:text-base italic text-white/90 drop-shadow-md leading-relaxed">
                     {event.subtitle}
                   </p>
 
@@ -183,7 +204,7 @@ export default function EventsEnhanced() {
                       <div className="font-cinzel text-xs sm:text-sm text-gold-soft uppercase tracking-wider">
                         {event.dateLabel}
                       </div>
-                      <div className="font-serif-display text-base sm:text-lg mt-1 text-cream drop-shadow-md">
+                      <div className="font-serif-display text-base sm:text-lg mt-1 text-white drop-shadow-md">
                         {event.dateFormatted}
                       </div>
                     </div>
@@ -193,7 +214,7 @@ export default function EventsEnhanced() {
                       <div className="font-cinzel text-xs sm:text-sm text-gold-soft uppercase tracking-wider">
                         {event.timeLabel}
                       </div>
-                      <div className="font-serif-display text-base sm:text-lg mt-1 text-cream drop-shadow-md">
+                      <div className="font-serif-display text-base sm:text-lg mt-1 text-white drop-shadow-md">
                         {event.timeFormatted}
                       </div>
                     </div>
@@ -203,7 +224,7 @@ export default function EventsEnhanced() {
                       <div className="font-cinzel text-xs sm:text-sm text-gold-soft uppercase tracking-wider">
                         {event.venueLabel}
                       </div>
-                      <div className="font-serif-display text-sm sm:text-base mt-1 text-cream drop-shadow-md">
+                      <div className="font-serif-display text-sm sm:text-base mt-1 text-white drop-shadow-md">
                         {event.venueFormatted}
                       </div>
                     </div>

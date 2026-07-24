@@ -86,10 +86,12 @@ const CornerBotanical = ({ className, style }: { className?: string; style?: Rea
 /* ─── Premium Gold Outline Ganesha SVG ─── */
 const GaneshGoldIcon = () => (
   <svg
+    width="64"
+    height="72"
     viewBox="0 0 100 110"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="mx-auto h-24 w-24 object-contain drop-shadow-md"
+    className="mx-auto"
   >
     {/* Crown (Mukut) */}
     <path d="M42,15 L50,5 L58,15 L55,25 L45,25 Z" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -234,32 +236,6 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
         />
       </motion.div>
 
-      {/* ─── FLOATING SAKURA PETALS & LEAVES ─── */}
-      {visible && !shouldReduceMotion && (
-        <div className="absolute inset-0 pointer-events-none z-[2] overflow-hidden">
-          {particles.map((p) => (
-            <div
-              key={p.id}
-              className="absolute top-0 select-none will-change-transform"
-              style={{
-                left: `${p.left}vw`,
-                filter: p.blur > 0 ? `blur(${p.blur}px)` : undefined,
-                animation: `fall ${p.duration}s linear ${p.delay}s infinite`,
-                ["--drift" as any]: p.drift,
-                ["--spin" as any]: p.spin,
-                ["--op" as any]: 0.85,
-              }}
-            >
-              {p.type === "petal" ? (
-                <SakuraPetal size={p.size} color={p.color} />
-              ) : (
-                <SageLeaf size={p.size} color={p.color} />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
       {/* ─── BOTANICAL CORNER ILLUSTRATIONS ─── */}
       <div className="absolute inset-0 pointer-events-none z-[3] overflow-hidden">
         {/* Top-Left Corner */}
@@ -308,16 +284,24 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
       </div>
 
       {/* ─── MAIN WEDDING CARD HERO CONTENT ─── */}
-      <div className="relative z-[4] w-full flex flex-col items-center text-center">
+      <div className="relative z-[4] w-full flex justify-center items-center">
+        <div className="w-full max-w-[90%] md:max-w-[700px] mx-auto flex flex-col items-center text-center px-4">
         {/* 1. Ganesha Gold Icon (Reveals first) */}
         <motion.div
           variants={fadeUpVariants}
           custom={0.3}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="text-rose-deep"
+          className="mb-6 flex justify-center"
         >
-          <GaneshGoldIcon />
+          <img 
+            src="/assets/ganesh-idol.png" 
+            alt="Lord Ganesha" 
+            width="96" 
+            height="96" 
+            loading="lazy"
+            className="mx-auto h-24 w-24 object-contain drop-shadow-md"
+          />
         </motion.div>
 
         {/* 2. Ganeshaya Namah Shloka */}
@@ -326,9 +310,13 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={0.8}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="font-serif-display italic text-lg sm:text-xl mt-2 text-rose-deep"
+          className="mt-2 tracking-[0.1em] text-rose-deep italic font-serif-display"
+          style={{
+            fontSize: "clamp(18px, 4vw, 22px)",
+            textShadow: "0 1px 2px rgba(255,255,255,0.4)"
+          }}
         >
-          ॥ Shree Ganeshaya Namah ॥
+          ‖ Shree Ganeshaya Namah ‖
         </motion.p>
 
         {/* 3. Invitation Shloka / Intro Text */}
@@ -337,7 +325,12 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={1.4}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-8 max-w-md font-serif-display text-base sm:text-lg text-rose-deep"
+          className="mt-6 mb-8 leading-relaxed max-w-[440px] px-4 font-light text-accent-500"
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: "clamp(15px, 3.5vw, 19px)",
+            letterSpacing: "0.02em"
+          }}
         >
           We cordially invite you to witness the beginning of our forever and celebrate the wedding ceremony of
         </motion.p>
@@ -348,23 +341,40 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={2.1}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-6"
+          className="text-primary-700 tracking-normal select-none w-full"
+          style={{
+            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
+            fontSize: "clamp(72px, 16vw, 140px)",
+            lineHeight: 1.05,
+            textShadow: "0 1px 2px rgba(212,165,165,0.15)",
+            overflow: "visible"
+          }}
         >
-          <span className="block font-cursive text-7xl sm:text-8xl md:text-9xl text-rose leading-none select-none">
-            {names[0]}
-          </span>
+          {names[0]}
         </motion.h1>
 
         {/* 5. Groom Parent Names */}
-        <motion.p
+        <motion.div
           variants={fadeUpVariants}
           custom={2.9}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-3 font-serif-display text-base sm:text-lg text-ink/80 whitespace-pre-line"
+          className="mt-2 mb-5"
         >
-          {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
-        </motion.p>
+          <p
+            className="whitespace-pre-line"
+            style={{
+              fontFamily: "var(--font-poppins), Poppins, sans-serif",
+              fontSize: "clamp(11px, 2.6vw, 13px)",
+              color: "#7a8a6c",
+              letterSpacing: "0.08em",
+              fontWeight: 400,
+              lineHeight: 1.6
+            }}
+          >
+            {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
+          </p>
+        </motion.div>
 
         {/* 6. "with" Connector Text */}
         <motion.p
@@ -372,7 +382,11 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={3.5}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-5 font-cursive text-3xl sm:text-4xl text-rose-deep italic"
+          className="my-3 font-light text-gold-700 italic"
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: "clamp(22px, 5vw, 32px)",
+          }}
         >
           with
         </motion.p>
@@ -383,23 +397,41 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
           custom={4.1}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-2"
+          className="text-primary-700 tracking-normal select-none w-full"
+          style={{
+            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
+            fontSize: "clamp(72px, 16vw, 140px)",
+            lineHeight: 1.05,
+            textShadow: "0 1px 2px rgba(212,165,165,0.15)",
+            overflow: "visible"
+          }}
         >
-          <span className="block font-cursive text-7xl sm:text-8xl md:text-9xl text-rose leading-none select-none">
-            {names[1]}
-          </span>
+          {names[1]}
         </motion.h1>
 
         {/* 8. Bride Parent Names */}
-        <motion.p
+        <motion.div
           variants={fadeUpVariants}
           custom={4.9}
           initial="hidden"
           animate={visible ? "visible" : "hidden"}
-          className="mt-3 font-serif-display text-base sm:text-lg text-ink/80 pb-12 whitespace-pre-line"
+          className="mt-2 mb-8"
         >
-          {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
-        </motion.p>
+          <p
+            className="whitespace-pre-line"
+            style={{
+              fontFamily: "var(--font-poppins), Poppins, sans-serif",
+              fontSize: "clamp(11px, 2.6vw, 13px)",
+              color: "#7a8a6c",
+              letterSpacing: "0.08em",
+              fontWeight: 400,
+              lineHeight: 1.6
+            }}
+          >
+            {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
+          </p>
+        </motion.div>
+      </div>
       </div>
     </section>
   );

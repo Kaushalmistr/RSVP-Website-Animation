@@ -7,10 +7,14 @@ import InvitationText from "./invitationText";
 import InvitationCard from "./InvitationCard";
 import ScratchCard from "./ScratchCard";
 import Navigation from "./Navigation";
+import CountdownTimer from "./CountdownTimer";
 import StoryEnhanced from "./Story";
 import EventsEnhanced from "./Events";
-import GalleryEnhanced from "./Gallery";
-import RSVP from "./RSVP";
+import NoblePresence from "./NoblePresence";
+import TheFamilies from "./TheFamilies";
+import VenueMap from "./VenueMap";
+import FlyingButterfly from "./FlyingButterfly";
+import BackgroundMusic from "./BackgroundMusic";
 import Footer from "./Footer";
 
 interface LandingScreenProps {
@@ -103,13 +107,21 @@ export default function LandingScreen({ names, date }: LandingScreenProps) {
 
   return (
     <div className="relative min-h-screen w-full bg-[#FAF6EE]">
+      {/* ─── BACKGROUND MUSIC ─── */}
+      <BackgroundMusic isPlaying={phase === "opened"} />
+
+      {/* ─── FALLING PETALS (Global - through entire website) ─── */}
+      <FallingFlowers count={25} layer="back" />
+
+      {/* ─── FLYING BUTTERFLY ─── */}
+      <FlyingButterfly />
+
       {/* ─── MAIN WEBSITE CONTENT (fades in under envelope overlay) ─── */}
       <div
         ref={websiteContent}
         style={{ opacity: 0, pointerEvents: "none" }}
         className="w-full"
       >
-        <Navigation />
         <InvitationCard
           names={names}
           date={date}
@@ -117,53 +129,43 @@ export default function LandingScreen({ names, date }: LandingScreenProps) {
         />
         <ScratchCard date="31st Dec" year="2026" targetDate="2026-12-31" />
         <EventsEnhanced />
-        <GalleryEnhanced />
-        <RSVP />
-        <Footer />
+        <NoblePresence />
+        <TheFamilies />
+        <VenueMap />
+        <Footer names={names} />
       </div>
 
       {/* ─── ENVELOPE SCENE OVERLAY (sits on top, fades out) ─── */}
       {phase !== "opened" && (
         <div
           ref={envelopeScene}
-          className="fixed inset-0 z-[50] min-h-screen w-full flex flex-col items-center justify-center overflow-hidden px-6 bg-envelope-scene"
+          className="fixed inset-0 overflow-hidden z-[50] w-full h-full"
+          style={{
+            background:
+              "radial-gradient(ellipse 130% 100% at 50% 0%, #b0bfa0 0%, #96a886 35%, #8a9c78 65%, #7d9070 100%)",
+          }}
         >
-          <span className="pointer-events-none absolute top-6 left-6 text-3xl opacity-70 animate-drift select-none">
-            🌸
-          </span>
-          <span
-            className="pointer-events-none absolute top-8 right-10 text-2xl opacity-60 animate-drift select-none"
-            style={{ animationDelay: "1s" }}
-          >
-            🌼
-          </span>
-          <span
-            className="pointer-events-none absolute bottom-8 left-10 text-3xl opacity-70 animate-drift select-none"
-            style={{ animationDelay: "2s" }}
-          >
-            🌿
-          </span>
-          <span
-            className="pointer-events-none absolute bottom-6 right-6 text-3xl opacity-70 animate-drift select-none"
-            style={{ animationDelay: "0.5s" }}
-          >
-            🌿
-          </span>
+          {/* Subtle vignette overlay */}
+          <div
+            className="fixed inset-0 pointer-events-none z-[0]"
+            style={{
+              background:
+                "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.12) 100%)",
+            }}
+          />
 
           <FallingFlowers count={20} layer="back" />
           <FloatingParticles count={12} />
 
-          <div className="relative z-[5] flex flex-col items-center">
-            <Envelope
-              names={names}
-              date={date}
-              onOpen={open}
-              refs={{ flap, seal, letter }}
-            />
-            <InvitationText names={names} date={date} visible={phase === "idle"} />
-          </div>
+          <Envelope
+            names={names}
+            date={date}
+            onOpen={open}
+            refs={{ flap, seal, letter }}
+          />
 
           <FallingFlowers count={8} layer="front" />
+          <InvitationText names={names} date={date} visible={phase === "idle"} />
         </div>
       )}
     </div>
