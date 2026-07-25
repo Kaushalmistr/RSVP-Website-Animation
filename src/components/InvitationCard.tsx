@@ -96,11 +96,11 @@ const GaneshGoldIcon = () => (
     {/* Crown (Mukut) */}
     <path d="M42,15 L50,5 L58,15 L55,25 L45,25 Z" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M45,20 L50,12 L55,20" stroke="#c9a961" strokeWidth="1.5" />
-    
+
     {/* Head and Ears */}
     <path d="M35,35 Q20,35 25,48 Q30,55 40,50" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" />
     <path d="M65,35 Q80,35 75,48 Q70,55 60,50" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" />
-    
+
     {/* Forehead details / Tilak */}
     <path d="M50,25 L50,38" stroke="#c4873a" strokeWidth="2" strokeLinecap="round" />
     <path d="M47,30 Q50,32 53,30" stroke="#c4873a" strokeWidth="1.5" />
@@ -108,14 +108,14 @@ const GaneshGoldIcon = () => (
 
     {/* Face profile and Trunk */}
     <path d="M44,38 Q50,36 56,38 Q52,50 56,58 Q60,66 65,65 Q70,64 71,58" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    
+
     {/* Modak and Hand */}
     <circle cx="73" cy="58" r="2.5" fill="#c9a961" />
     <path d="M70,62 Q75,65 73,70" stroke="#c9a961" strokeWidth="1.5" />
-    
+
     {/* Left Tusk */}
     <path d="M45,46 L40,47" stroke="#c9a961" strokeWidth="2" strokeLinecap="round" />
-    
+
     {/* Eyes */}
     <path d="M43,42 C44,42 45,41 45,40" stroke="#c4873a" strokeWidth="1.5" strokeLinecap="round" />
     <path d="M57,42 C56,42 55,41 55,40" stroke="#c4873a" strokeWidth="1.5" strokeLinecap="round" />
@@ -219,15 +219,15 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
       >
         {/* Soft blush watercolor stain top-left */}
         <div className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-[#FCEBEB] blur-[90px] opacity-60" />
-        
+
         {/* Soft sage watercolor stain right-center */}
         <div className="absolute top-[25%] -right-[15%] w-[65vw] h-[65vw] rounded-full bg-[#EBF0E6] blur-[100px] opacity-55" />
-        
+
         {/* Creamy gold watercolor stain bottom-left */}
         <div className="absolute -bottom-[10%] -left-[5%] w-[55vw] h-[55vw] rounded-full bg-[#F7EAD0] blur-[80px] opacity-45" />
 
         {/* Paper texture grain overlay */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.035]"
           style={{
             backgroundImage: "radial-gradient(#4a3f2f 1px, transparent 1px)",
@@ -286,152 +286,152 @@ export default function InvitationCard({ names, date, visible }: InvitationCardP
       {/* ─── MAIN WEDDING CARD HERO CONTENT ─── */}
       <div className="relative z-[4] w-full flex justify-center items-center">
         <div className="w-full max-w-[90%] md:max-w-[700px] mx-auto flex flex-col items-center text-center px-4">
-        {/* 1. Ganesha Gold Icon (Reveals first) */}
-        <motion.div
-          variants={fadeUpVariants}
-          custom={0.3}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="mb-6 flex justify-center"
-        >
-          <img 
-            src="/assets/ganesh-idol.png" 
-            alt="Lord Ganesha" 
-            width="96" 
-            height="96" 
-            loading="lazy"
-            className="mx-auto h-24 w-24 object-contain drop-shadow-md"
-          />
-        </motion.div>
+          {/* 1. Ganesha Gold Icon (Reveals first) */}
+          <motion.div
+            variants={fadeUpVariants}
+            custom={0.3}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="mb-6 flex justify-center"
+          >
+            <img
+              src="/assets/ganesh-idol.png"
+              alt="Lord Ganesha"
+              width="96"
+              height="96"
+              loading="lazy"
+              className="mx-auto h-24 w-24 object-contain drop-shadow-md"
+            />
+          </motion.div>
 
-        {/* 2. Ganeshaya Namah Shloka */}
-        <motion.p
-          variants={fadeUpVariants}
-          custom={0.8}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="mt-2 tracking-[0.1em] text-rose-deep italic font-serif-display"
-          style={{
-            fontSize: "clamp(18px, 4vw, 22px)",
-            textShadow: "0 1px 2px rgba(255,255,255,0.4)"
-          }}
-        >
-          ‖ Shree Ganeshaya Namah ‖
-        </motion.p>
-
-        {/* 3. Invitation Shloka / Intro Text */}
-        <motion.p
-          variants={fadeUpVariants}
-          custom={1.4}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="mt-6 mb-8 leading-relaxed max-w-[440px] px-4 font-light text-accent-500"
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(15px, 3.5vw, 19px)",
-            letterSpacing: "0.02em"
-          }}
-        >
-          We cordially invite you to witness the beginning of our forever and celebrate the wedding ceremony of
-        </motion.p>
-
-        {/* 4. Groom Name (Ink/clipPath Reveal) */}
-        <motion.h1
-          variants={nameRevealVariants}
-          custom={2.1}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="text-primary-700 tracking-normal select-none w-full"
-          style={{
-            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
-            fontSize: "clamp(72px, 16vw, 140px)",
-            lineHeight: 1.05,
-            textShadow: "0 1px 2px rgba(212,165,165,0.15)",
-            overflow: "visible"
-          }}
-        >
-          {names[0]}
-        </motion.h1>
-
-        {/* 5. Groom Parent Names */}
-        <motion.div
-          variants={fadeUpVariants}
-          custom={2.9}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="mt-2 mb-5"
-        >
-          <p
-            className="whitespace-pre-line"
+          {/* 2. Ganeshaya Namah Shloka */}
+          <motion.p
+            variants={fadeUpVariants}
+            custom={0.8}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="mt-2 tracking-[0.1em] text-rose-deep italic font-serif-display"
             style={{
-              fontFamily: "var(--font-poppins), Poppins, sans-serif",
-              fontSize: "clamp(11px, 2.6vw, 13px)",
-              color: "#7a8a6c",
-              letterSpacing: "0.08em",
-              fontWeight: 400,
-              lineHeight: 1.6
+              fontSize: "clamp(18px, 4vw, 22px)",
+              textShadow: "0 1px 2px rgba(255,255,255,0.4)"
             }}
           >
-            {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
-          </p>
-        </motion.div>
+            ‖ Shree Ganeshaya Namah ‖
+          </motion.p>
 
-        {/* 6. "with" Connector Text */}
-        <motion.p
-          variants={fadeUpVariants}
-          custom={3.5}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="my-3 font-light text-gold-700 italic"
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: "clamp(22px, 5vw, 32px)",
-          }}
-        >
-          with
-        </motion.p>
-
-        {/* 7. Bride Name (Ink/clipPath Reveal) */}
-        <motion.h1
-          variants={nameRevealVariants}
-          custom={4.1}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="text-primary-700 tracking-normal select-none w-full"
-          style={{
-            fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
-            fontSize: "clamp(72px, 16vw, 140px)",
-            lineHeight: 1.05,
-            textShadow: "0 1px 2px rgba(212,165,165,0.15)",
-            overflow: "visible"
-          }}
-        >
-          {names[1]}
-        </motion.h1>
-
-        {/* 8. Bride Parent Names */}
-        <motion.div
-          variants={fadeUpVariants}
-          custom={4.9}
-          initial="hidden"
-          animate={visible ? "visible" : "hidden"}
-          className="mt-2 mb-8"
-        >
-          <p
-            className="whitespace-pre-line"
+          {/* 3. Invitation Shloka / Intro Text */}
+          <motion.p
+            variants={fadeUpVariants}
+            custom={1.4}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="mt-6 mb-8 leading-relaxed max-w-[440px] px-4 font-light text-accent-500"
             style={{
-              fontFamily: "var(--font-poppins), Poppins, sans-serif",
-              fontSize: "clamp(11px, 2.6vw, 13px)",
-              color: "#7a8a6c",
-              letterSpacing: "0.08em",
-              fontWeight: 400,
-              lineHeight: 1.6
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(15px, 3.5vw, 19px)",
+              letterSpacing: "0.02em"
             }}
           >
-            {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
-          </p>
-        </motion.div>
-      </div>
+            We cordially invite you to witness the beginning of our forever and celebrate the wedding ceremony of
+          </motion.p>
+
+          {/* 4. Groom Name (Ink/clipPath Reveal) */}
+          <motion.h1
+            variants={nameRevealVariants}
+            custom={2.1}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="text-primary-700 tracking-normal select-none text-center padding-right: 40px;"
+            style={{
+              fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
+              fontSize: "clamp(72px, 16vw, 120px)",
+              lineHeight: 1.05,
+              textShadow: "0 1px 2px rgba(212,165,165,0.15)",
+              overflow: "visible"
+            }}
+          >
+            {names[0]}
+          </motion.h1>
+
+          {/* 5. Groom Parent Names */}
+          <motion.div
+            variants={fadeUpVariants}
+            custom={2.9}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="mt-2 mb-5"
+          >
+            <p
+              className="whitespace-pre-line"
+              style={{
+                fontFamily: "var(--font-poppins), Poppins, sans-serif",
+                fontSize: "clamp(11px, 2.6vw, 13px)",
+                color: "#7a8a6c",
+                letterSpacing: "0.08em",
+                fontWeight: 400,
+                lineHeight: 1.6
+              }}
+            >
+              {isRushikesh ? "S/o Mr. Sanjay Deshmukh\n& Mrs. Seema Deshmukh" : "Son of Mr. & Mrs. Mistry"}
+            </p>
+          </motion.div>
+
+          {/* 6. "with" Connector Text */}
+          <motion.p
+            variants={fadeUpVariants}
+            custom={3.5}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="my-3 font-light text-gold-700 italic"
+            style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: "clamp(22px, 5vw, 32px)",
+            }}
+          >
+            with
+          </motion.p>
+
+          {/* 7. Bride Name (Ink/clipPath Reveal) */}
+          <motion.h1
+            variants={nameRevealVariants}
+            custom={4.1}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="text-primary-700 tracking-normal select-none text-center"
+            style={{
+              fontFamily: "var(--font-great-vibes), 'Great Vibes', cursive",
+              fontSize: "clamp(72px, 16vw, 140px)",
+              lineHeight: 1.05,
+              textShadow: "0 1px 2px rgba(212,165,165,0.15)",
+              overflow: "visible"
+            }}
+          >
+            {names[1]}
+          </motion.h1>
+
+          {/* 8. Bride Parent Names */}
+          <motion.div
+            variants={fadeUpVariants}
+            custom={4.9}
+            initial="hidden"
+            animate={visible ? "visible" : "hidden"}
+            className="mt-2 mb-8"
+          >
+            <p
+              className="whitespace-pre-line"
+              style={{
+                fontFamily: "var(--font-poppins), Poppins, sans-serif",
+                fontSize: "clamp(11px, 2.6vw, 13px)",
+                color: "#7a8a6c",
+                letterSpacing: "0.08em",
+                fontWeight: 400,
+                lineHeight: 1.6
+              }}
+            >
+              {isRushikesh ? "D/o Mr. Dasharath Yadav\n& Mrs. Ujjwala Yadav" : "Daughter of Mr. & Mrs. Family"}
+            </p>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

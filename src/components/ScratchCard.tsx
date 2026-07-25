@@ -245,6 +245,30 @@ export default function ScratchCard({ date, year, targetDate = '2026-07-19' }: S
 
   return (
     <section className="relative py-20 px-6 bg-cream">
+      {/* Label above the scratch card */}
+      <div className="text-center mb-8 h-6 flex items-center justify-center">
+        {stage !== 'revealed' ? (
+          <motion.p
+            key="scratch-label"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="font-cinzel tracking-[0.25em] text-rose-deep text-xs md:text-sm uppercase font-semibold"
+          >
+            ✦ Scratch to reveal the date ✦
+          </motion.p>
+        ) : (
+          <motion.p
+            key="revealed-label"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-cinzel tracking-[0.25em] text-sage-deep text-xs md:text-sm uppercase font-semibold"
+          >
+            ✦ Save the date ✦
+          </motion.p>
+        )}
+      </div>
+
       <motion.div
         className="relative w-full max-w-xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
