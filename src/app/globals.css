@@ -154,3 +154,9 @@ html,
 body {
   overflow-x: hidden;
 }
+
+/* Custom class overrides */
+.py-20 {
+  padding-top: 10rem !important;
+  padding-bottom: 5rem !important;
+}

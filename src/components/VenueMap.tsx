@@ -71,16 +71,19 @@ export default function VenueMap() {
           </h2>
 
           {/* Venue address */}
-          <p 
-            className="text-base md:text-lg"
+          <a 
+            href="https://www.google.com/maps/dir/?api=1&destination=The+St.+Regis+Mumbai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-base md:text-lg hover:underline transition-all block max-w-xl mx-auto"
             style={{
               color: "#7a8a6c",
               fontFamily: "'Cormorant Garamond', Georgia, serif",
               letterSpacing: "0.02em"
             }}
           >
-            Fuhal Garden, Zirappusali, Phaltan, Satara, Maharashtra
-          </p>
+            The St. Regis Mumbai, 462, Senapati Bapat Marg, Lower Parel, Mumbai, Maharashtra 400013
+          </a>
         </motion.div>
 
         {/* Map Container */}
@@ -89,15 +92,15 @@ export default function VenueMap() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative rounded-2xl overflow-hidden shadow-elegant mb-8"
+          className="relative rounded-3xl overflow-hidden shadow-elegant mb-6 max-w-3xl mx-auto"
           style={{
-            height: "400px",
-            border: "3px solid #c9a961"
+            height: "420px",
+            border: "1px solid rgba(201, 169, 97, 0.4)"
           }}
         >
           {/* Google Map Iframe */}
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3733.8471234567890!2d74.7!3d18.16!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2a1234567890%3A0x1234567890abcdef!2sFuhal%20Garden%20Hall!5e0!3m2!1sen!2sin!4v1234567890123"
+            src="https://maps.google.com/maps?q=The%20St.%20Regis%20Mumbai&t=&z=15&ie=UTF8&iwloc=&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
@@ -116,15 +119,18 @@ export default function VenueMap() {
           className="flex justify-center"
         >
           <a
-            href="https://maps.google.com/?q=Fuhal+Garden+Zirappusali+Phaltan+Satara"
+            href="https://www.google.com/maps/dir/?api=1&destination=The+St.+Regis+Mumbai"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-8 py-3 rounded-full font-cinzel tracking-widest text-sm font-semibold shadow-soft hover:shadow-elegant transition-all text-center"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-cinzel tracking-widest text-xs font-semibold shadow-soft hover:shadow-elegant transition-all text-center"
             style={{
-              backgroundColor: "#c9a961",
+              backgroundColor: "#b3924c",
               color: "#fff",
             }}
           >
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.41 11.59l-10-10a2 2 0 0 0-2.82 0l-10 10a2 2 0 0 0 0 2.82l10 10a2 2 0 0 0 2.82 0l10-10a2 2 0 0 0 0-2.82zm-10.41 5.41v-3h-4v-3h4v-3l4.5 4.5-4.5 4.5z" />
+            </svg>
             Get Directions
           </a>
         </motion.div>
