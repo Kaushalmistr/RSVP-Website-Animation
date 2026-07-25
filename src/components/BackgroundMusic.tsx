@@ -12,6 +12,7 @@ export default function BackgroundMusic({ isPlaying }: BackgroundMusicProps) {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [showButton, setShowButton] = useState(false)
+  const audioSrc = "/assets/Audio/Pehla%20Nasha%20%20-%20Instrumental.mp3"
 
   // Make the floating button visible only after the envelope opens
   useEffect(() => {
@@ -25,19 +26,25 @@ export default function BackgroundMusic({ isPlaying }: BackgroundMusicProps) {
     const audio = audioRef.current
     if (!audio) return
 
-    if (isPlaying && hasInteracted) {
-      if (isMuted) {
-        audio.muted = true
-      } else {
-        audio.muted = false
-        audio.play().catch(() => {
-          // Autoplay might be blocked, user interaction required
-          console.log('Autoplay blocked - waiting for user interaction')
-        })
-      }
-    } else {
+    if (!isPlaying) {
       audio.pause()
+      return
     }
+
+    audio.muted = isMuted
+
+    if (!hasInteracted) {
+      return
+    }
+
+    if (isMuted) {
+      audio.pause()
+      return
+    }
+
+    audio.play().catch((error) => {
+      console.warn('Audio autoplay blocked or unavailable:', error)
+    })
   }, [isPlaying, hasInteracted, isMuted])
 
   // Allow first interaction to enable audio
@@ -70,11 +77,9 @@ export default function BackgroundMusic({ isPlaying }: BackgroundMusicProps) {
         preload="auto"
         loop
         style={{ display: 'none' }}
+        onError={() => console.error('Audio file failed to load:', audioSrc)}
       >
-        <source 
-          src="/audio/wedding-instrumental.mp3" 
-          type="audio/mpeg" 
-        />
+        <source src={audioSrc} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 
